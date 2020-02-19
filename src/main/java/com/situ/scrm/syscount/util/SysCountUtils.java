@@ -79,7 +79,7 @@ public class SysCountUtils implements Serializable {
 	 * @Description:(得到资源的编号)
 	 * @return
 	 */
-	public String buildRescCode() {
+	public String buildRescCode1() {
 		// 要查询的字段名称 INDEX1
 		String columnName = SysCount.INDEX2;
 		StringBuffer buffer = new StringBuffer(S);

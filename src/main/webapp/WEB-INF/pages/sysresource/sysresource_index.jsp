@@ -38,4 +38,4 @@
            lay-text="正常|锁定" {{d.state==0?'checked':''}}/>
 </script>
 <!-- 引入自定义的JS脚本 -->
-<script type="text/javascript" src="assert/pages/js/sys/sysresource.js"></script>
+<script type="text/javascript" src="assert/pages/js/sysresource.js"></script>

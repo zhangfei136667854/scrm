@@ -26,7 +26,6 @@ import com.situ.scrm.sys.sysresource.domain.SysResource;
 import com.situ.scrm.sys.sysresource.service.SysResourceService;
 import com.situ.scrm.utils.DAOUtils;
 
-
 /**
  * @ClassName:SysResourceServiceImpl
  * @Description:(SysResourceServiceImpl)
@@ -125,7 +124,7 @@ public class SysResourceServiceImpl implements SysResourceService {
 	@Transactional // 此逻辑牵扯到多次数据库的操作，启用事务处理
 	public Long saveSysResource(SysResource sysResource) {
 		// 得到资源编号
-		String rescCode = sysCountUtils.buildRescCode();
+		String rescCode = sysCountUtils.buildRescCode1();
 		sysResource.setRescCode(rescCode);
 		// 根据父类数据处理排序问题。
 		String parentCode = sysResource.getParentCode();
@@ -305,7 +304,7 @@ public class SysResourceServiceImpl implements SysResourceService {
 		if (!parentCode.equals(SysResource.DEFAULT_PARENT_CODE)) {
 			// 修改父类的资源是否有子元素
 			Integer hasChild = 0;
-			List<SysResource> childResourceList = sysResourceDao.findByParent(rescCode);
+			List<SysResource> childResourceList = sysResourceDao.findByParent(parentCode);
 			if (childResourceList != null && !childResourceList.isEmpty()) {
 				hasChild = 1;
 			}

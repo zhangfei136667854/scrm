@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.scrm.sys.sysSetting.dao.SysSettingDao">
+<insert id="save" parameterType="SysSetting" useGeneratedKeys="true" keyProperty="rowId" keyColumn="ROW_ID">
+INSERT INTO TB_SYSSETTING (ACTIVE_FLAG,CREATE_DATE,CREATE_BY,COMPANY_NAME,NATION_WATER_DAY,DOC_REMIND)
+VALUES(#{activeFlag},#{createDate},#{createBy},#{companyName},#{nationWaterDay},#{docRemind})
+</insert>
+<select id="gett" resultType="SysSetting">
+SELECT ROW_ID,ACTIVE_FLAG,CREATE_DATE,CREATE_BY,COMPANY_NAME,NATION_WATER_DAY,DOC_REMIND FROM TB_SYSSETTING 
+</select>
+<update id="update" parameterType="SysSetting">
+UPDATE TB_SYSSETTING
+<set>
+<if test="companyName!=null">COMPANY_NAME=#{companyName},</if>
+<if test="nationWaterDay!=null">NATION_WATER_DAY=#{nationWaterDay},</if>
+<if test="docRemind!=null">DOC_REMIND=#{docRemind}</if>
+</set>
+</update>
+</mapper>

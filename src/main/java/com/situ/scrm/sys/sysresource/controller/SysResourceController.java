@@ -29,9 +29,9 @@ import com.situ.scrm.sys.sysresource.service.SysResourceService;
 @RestController
 @RequestMapping("/sysresource")
 public class SysResourceController implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private static final String PAGE_INDEX_RESOURCE = "sys/sysresource/sysreource_index";
-	private static final String PAGE_ADD_EDIT_RESOURCE = "sys/sysresource/sysreource_add_edit";
+	private static final long serialVersionUID = 1L;   
+	private static final String PAGE_INDEX_RESOURCE = "sysresource/sysresource_index";
+	private static final String PAGE_ADD_EDIT_RESOURCE = "sysresource/sysreource_add_edit";
 
 	@Autowired
 	private SysResourceService sysResourceService;
