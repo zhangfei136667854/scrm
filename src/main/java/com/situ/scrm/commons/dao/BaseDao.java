@@ -29,14 +29,14 @@ public interface BaseDao<T> {
 	 * @Description:(修改对象)
 	 * @param t
 	 */
-	void update(T t);
+	Long update(T t);
 
 	/**
 	 * @Title: delete 
 	 * @Description:(根据主键删除对象)
 	 * @param rowId
 	 */
-	void delete(Long rowId);
+	Long delete(Long rowId);
 
 	/**
 	 * @Title: get 

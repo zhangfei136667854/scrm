@@ -46,6 +46,7 @@ layui.use([ 'layer', 'table', 'form' ], function() {
 					layer.closeAll(); //疯狂模式，关闭所有层
 					//请求table重新加载数据 list_table = <table id="list_table"/>
 					table.reload('list_table');
+					//window.parent.location.reload('list_table');
 				}
 			}
 		});

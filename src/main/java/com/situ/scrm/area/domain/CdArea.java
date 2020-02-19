@@ -4,7 +4,9 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
-import com.situ.scrm.base.BaseClass;
+import com.situ.scrm.commons.domain.BaseClass;
+
+
 @Alias("CdArea")
 public class CdArea extends BaseClass implements Serializable {
 

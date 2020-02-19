@@ -89,6 +89,9 @@
 							<dd>
 								<a href="sysresource">资源管理</a>
 							</dd>
+							<dd>
+								<a href="dictionaries">数据字典</a>
+							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="">云市场</a></li>
 					<li class="layui-nav-item"><a href="">发布商品</a></li>

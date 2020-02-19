@@ -59,4 +59,12 @@ public interface SysResourceDao extends BaseDao<SysResource> {
 	 * @return
 	 */
 	List<SysResource> findByParent(String parentCode);
+
+	/**
+	 * @Title: findIdByParent
+	 * @Description:(根据parentCode查询出主键集合)
+	 * @param parentCode
+	 * @return
+	 */
+	List<Long> findIdByParent(String parentCode);
 }

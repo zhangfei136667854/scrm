@@ -18,13 +18,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.situ.scrm.commons.domain.LayResult;
-import com.situ.scrm.sys.syscount.util.SysCountUtils;
+import com.situ.scrm.syscount.util.SysCountUtils;
 import com.situ.scrm.sys.sysresource.dao.SysActionInfoDao;
 import com.situ.scrm.sys.sysresource.dao.SysResourceDao;
 import com.situ.scrm.sys.sysresource.domain.SysActionInfo;
 import com.situ.scrm.sys.sysresource.domain.SysResource;
 import com.situ.scrm.sys.sysresource.service.SysResourceService;
 import com.situ.scrm.utils.DAOUtils;
+
 
 /**
  * @ClassName:SysResourceServiceImpl

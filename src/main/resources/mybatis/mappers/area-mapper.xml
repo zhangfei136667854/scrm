@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.situ.scrm.area.dao.AreaDao">
+<mapper namespace="com.situ.scrm.sys.area.dao.AreaDao">
 	<sql id="area_base_select">SELECT
 		ROW_ID,AREA_CODE,AREA_NAME,PARENT_CODE,AREA_RUNK,HAS_CHILD,ACTIVE_FLAG,CREATE_BY,CREATE_DATE,UPDATE_BY,UPDATE_DATE
 		FROM YT_CD_AREA WHERE ACTIVE_FLAG = 1
