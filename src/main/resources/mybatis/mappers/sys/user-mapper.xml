@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.scrm.sys.user.dao.UserDao">
+<select id="findByLevel" resultType="User">
+SELECT USER_NAME,USER_CODE FROM BT_SYS_USER WHERE USER_LEVEL=#{userLevel}
+</select>
+<insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="rowId" keyColumn="ROW_ID">
+INSERT INTO BT_SYS_USER(PARENT_CODE,ROLE_CODE,USER_KIND,USER_PASS,USER_LEVEL,USER_NAME,USER_CODE,LOGIN_COUNT,LOGIN_DATE,IS_LOCK,ACTIVE_FLAG)
+VALUE(#{parentCode},#{roleCode},#{userKind},#{userPass},#{userLevel},#{userName},#{userCode},#{loginCount},#{loginDate},#{isLock},#{activeFlag})
+</insert>
+<select id="get" resultType="java.lang.Integer">
+SELECT COUNT(ROW_ID) FROM BT_SYS_USER WHERE ACTIVE_FLAG=1
+</select>
+
+<select id="findBYpage" resultType="User">
+		SELECT ROW_ID,USER_KIND,USER_PASS,USER_LEVEL,USER_NAME,USER_CODE,LOGIN_COUNT,LOGIN_DATE,IS_LOCK,ACTIVE_FLAG
+		FROM BT_SYS_USER
+		WHERE ACTIVE_FLAG=1
+		<if test="user!=null">
+		<if test="user.userKind!=null">AND USER_KIND=#{user.userKind}</if>
+		<if test="user.userName!=null"> AND USER_NAME=#{user.userName}</if>
+		<if test="user.userCode!=null">AND USER_CODE=#{user.userCode}</if></if>
+		LIMIT #{pagination.firstResult},#{pagination.maxResults}
+	</select>
+	<delete id="delete">
+	DELETE FROM BT_SYS_USER  WHERE ROW_ID=#{rowId}
+	</delete>
+	<select id="getUser" resultType="User">
+	SELECT ROLE_CODE,ROW_ID,USER_KIND,USER_PASS,USER_LEVEL,USER_NAME,USER_CODE,LOGIN_COUNT,LOGIN_DATE,IS_LOCK,ACTIVE_FLAG
+	FROM BT_SYS_USER  WHERE ROW_ID=#{rowId}
+	</select>
+	<update id="update" parameterType="User">
+	UPDATE BT_SYS_USER  
+	<set>
+	<if test="userLevel!=null">USER_LEVEL=#{userLevel},</if>
+		<if test="userName!=null">  USER_NAME=#{userName},</if>
+		<if test="userCode!=null"> USER_CODE=#{userCode},</if>
+		<if test="roleCode!=null"> ROLE_CODE=#{roleCode},</if>
+		<if test="parentCode!=null"> PARENT_CODE=#{parentCode},</if>
+	</set>
+	WHERE ROW_ID=#{rowId}
+	</update>
+	
+	<update id="updateByIsLock" parameterType="java.lang.Integer">
+	UPDATE BT_SYS_USER SET IS_LOCK=#{isLock} WHERE ROW_ID=#{rowId}
+	</update>
+</mapper>

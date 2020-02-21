@@ -3,9 +3,11 @@ package com.situ.scrm.sys.dictionaries.controller;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -103,14 +105,33 @@ public class DictionariesController implements Serializable {
 		// 默认的父类CODE
 		Dictionaries parentDictionaries = dictionariesService.getDictionariesById(parentId);
 		modelAndView.addObject("parentKey", parentDictionaries.getDicKey());
-		
 		modelAndView.addObject("parentName", parentDictionaries.getDicValue());
 		modelAndView.setViewName(PAGE_DIC_ADD);
 		return modelAndView;
 	}
-	
-	
-	
+	/**
+	 * 
+	 * @param rowId
+	 * @return查询实例
+	 */
+	@GetMapping("/{rowId}")
+	public Dictionaries doGetDic(@PathVariable Long rowId) {
+		return dictionariesService.getDictionariesById(rowId);
+		
+	}
+	/**
+	 * 
+	 * @param dic
+	 * @return执行修改
+	 */
+	@PutMapping
+	public Long doUpdate(Dictionaries dic) {
+		return dictionariesService.doUpdate(dic);
+	}
+	@DeleteMapping("/{rowId}")
+	public Long doDelete(@PathVariable Long rowId) {
+		return dictionariesService.doDelete(rowId);
+	}
 	
 	
 	

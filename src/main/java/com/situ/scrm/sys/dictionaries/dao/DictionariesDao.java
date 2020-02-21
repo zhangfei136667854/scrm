@@ -16,12 +16,16 @@ public interface DictionariesDao {
 
 	Integer getMaxOrder(String parentKey);
 
-	void updateHasChild(@Param("dicKay")String dicKay, @Param("hasChild") Integer hasChild);
+	void updateHasChild(@Param("dicKay") String dicKay, @Param("hasChild") Integer hasChild);
 
 	List<Dictionaries> find();
 
 	Dictionaries getByKey(String dicKay);
 
 	Dictionaries get(Long rowId);
+
+	Long update(Dictionaries dictionaries);
+
+	Long delete(Long rowId);
 
 }

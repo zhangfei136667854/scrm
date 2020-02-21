@@ -69,11 +69,13 @@ layui.use([ 'layer', 'table', 'form' ], function() {
 	
    //注：tool 是工具条事件名，filter_table =<table lay-filter="filter_table">
 	table.on('tool(filter_table)',function(obj){
+		
 		 var data = obj.data; //获得当前行数据
 		 var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 		 //var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 		 //通过data将要修改的数据的主键 取出
 		 var rowId = data.rowId;
+		
 		switch (layEvent) {
 		case 'edit':
 			//打开通用的layer弹层

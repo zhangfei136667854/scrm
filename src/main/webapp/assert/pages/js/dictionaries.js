@@ -45,6 +45,9 @@ layui.use(['layer', 'util', 'treeTable','iconPicker'], function () {
                 	});
                 }
         });
+        
+        
+        
 
         treeTable.on('tool(list_table)', function (obj) {
             var event = obj.event;

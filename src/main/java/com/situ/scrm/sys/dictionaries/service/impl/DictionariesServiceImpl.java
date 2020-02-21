@@ -141,6 +141,23 @@ public class DictionariesServiceImpl implements  DictionariesService {
 		return dictionaries;
 	}
 
+
+
+
+	@Override
+	public Long doUpdate(Dictionaries dic) {
+		// TODO Auto-generated method stub
+		return dictionariesDao.update(dic);
+	}
+
+
+	@Override
+	public Long doDelete(Long rowId) {
+		// TODO Auto-generated method stub
+		return dictionariesDao.delete(rowId);
+	}
+
+
 	
 	
 }

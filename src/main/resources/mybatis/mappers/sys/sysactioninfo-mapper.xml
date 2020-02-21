@@ -15,7 +15,7 @@
 		INSERT INTO BT_SYS_SYS_ACTION_INFO(<include refid="actioninfo_base_column" />)
 		VALUES (#{rescCode},#{method},#{actionUrl},#{activeFlag},#{createBy},#{createDate})
 	</insert>
-<!-- 	<update id="update" parameterType="Role">
+	<!-- <update id="update" parameterType="Role">
 		UPDATE BT_SYS_SYS_ACTION_INFO
 		<set>
 			<if test="rescCode != null">

@@ -41,5 +41,14 @@
 		<include refid="dictionarie_base_select" />
 		AND DIC_KEY = #{dicKey}
 	</select>
+	<update id="update" parameterType="Dictionaries">
+	UPDATE TB_DICTIONARY <set>
+	<if test="dicCode!=null">DIC_CODE=#{dicCode},</if>
+	<if test="dicValue!=null">DIC_VALUE=#{dicValue}</if>
+	</set>WHERE ACTIVE_FLAG=1 AND ROW_ID=#{rowId}
+	</update>
+	<delete id="delete">
+	DELETE FROM TB_DICTIONARY WHERE ROW_ID=#{rowId}
+	</delete>
 
 </mapper>

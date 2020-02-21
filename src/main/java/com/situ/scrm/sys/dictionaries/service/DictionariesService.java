@@ -13,4 +13,10 @@ public interface DictionariesService {
 
 	Dictionaries getDictionariesById(Long parentId);
 
+	
+
+	Long doUpdate(Dictionaries dic);
+
+	Long doDelete(Long rowId);
+
 }

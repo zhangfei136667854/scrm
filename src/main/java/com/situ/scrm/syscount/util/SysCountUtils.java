@@ -92,5 +92,26 @@ public class SysCountUtils implements Serializable {
 		sysCountDao.updatePlus(columnName, sequnce);
 		return buffer.toString();
 	}
+	/**
+	 * @Title: buildRoleCode yyMMdd01
+	 * @Description:(得到角色的编号)
+	 * @return
+	 */
+	@Transactional
+	public String buildRoleCode() {
+		// 要查询的字段名称 INDEX1
+		String columnName = SysCount.INDEX1;
+		Calendar calendar = Calendar.getInstance();
+		StringBuffer numBuffer = new StringBuffer();
+		numBuffer.append(FORMARt_YY_MM_DD.format(calendar.getTime()));
+		// 通过序列表的DAO查询出当前序列的数 :比如说当前序列 是 2
+		int index = sysCountDao.get(columnName);
+		// 将当前的序列 加一 。然后 append到numBuffer 中
+		int sequnce = index + 1;
+		numBuffer.append(FOMATER_00.format(sequnce));
+		// 将这个序列的最新值更新回数据库。
+		sysCountDao.updatePlus(columnName, sequnce);
+		return numBuffer.toString();
+	}
 
 }
