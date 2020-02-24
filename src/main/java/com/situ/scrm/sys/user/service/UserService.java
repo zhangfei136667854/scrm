@@ -1,5 +1,7 @@
 package com.situ.scrm.sys.user.service;
 
+import javax.servlet.http.HttpSession;
+
 import com.situ.scrm.commons.domain.LayResult;
 import com.situ.scrm.sys.user.domain.User;
 
@@ -18,5 +20,7 @@ public interface UserService {
 	Long doUpdate(User user);
 
 	Long updateIsLock(Integer isLock);
+
+	User userLogin(User user,HttpSession session);
 
 }

@@ -28,6 +28,7 @@ layui.use([ 'layer', 'table', 'form' ], function() {
 	
 	// 监听提交动作  submit(but_submit) = <button class="layui-btn" lay-submit lay-filter="but_submit">
 	form.on('submit(but_submit)', function(data) {
+		alert("zheshi");
 		//data.field //当前容器的全部表单字段，名值对形式：{name: value}
 		var rowId = data.field.rowId;
 		//默认为新增

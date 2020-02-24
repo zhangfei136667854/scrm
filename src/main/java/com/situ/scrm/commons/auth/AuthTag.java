@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
@@ -57,41 +58,37 @@ public class AuthTag extends SimpleTagSupport implements Serializable {
 	private Boolean checkInvoke(HttpSession session) {
 		// 首先检测是否为超级角色,超级角色不做权限检测
 		// 如果是超级角色,直接返回true
-		if (checkIsSuper(session)) {
-			return true;
-		} else {// 否则进行URL的检测,所提供的URL是否在用户的权限列表中
+		//if (checkIsSuper(session)) {
+			//return true;
+		//} else {// 否则进行URL的检测,所提供的URL是否在用户的权限列表中
 			// 取出放置在HttpSession中的用户权限URL集合
-			Object objectResourceMap = session.getAttribute(AppConfig.SESSION_RESOURCE_MAP_ROLE);
+			Object objectResourceMap = session.getAttribute("actionInfoMap");
 			if (objectResourceMap != null) {
 				@SuppressWarnings("unchecked")
-				Map<String, Map<String, List<String>>> resourceMap = (Map<String, Map<String, List<String>>>) objectResourceMap;
+				Map<String, Set<String>> resourceMap = (Map<String,  Set<String>>) objectResourceMap;
 				if (resourceMap != null) {
 					if (url != null) {
+						//将输出的URL处理一下，去掉空格和将如果开头头斜杠也处理掉
 						String checkUrl = url.trim();
 						if (url.startsWith(SEPARATOR)) {
 							checkUrl = url.replaceFirst(SEPARATOR, "");
 						}
-						// 如果URL的第一个字符为反斜杠,则尝试去掉;
-						String firstUrl = checkUrl;
-						if (checkUrl.contains(SEPARATOR)) {
-							firstUrl = checkUrl.substring(0, checkUrl.indexOf(SEPARATOR));
-						}
-						Map<String, List<String>> listMap = resourceMap.get(firstUrl);
-						if (listMap != null) {
-							List<String> urlList = listMap.get(method.toUpperCase());
-							// 判断如果提供的URL在用户的权限URL集合中,则返回true.
-							if (urlList != null && !urlList.isEmpty()) {
-								for (String regex : urlList) {
-									if (checkUrl.matches(regex)) {
-										return true;
-									}
+						Set<String> actionUrlSet =resourceMap.get(method.toUpperCase());
+						if(actionUrlSet!=null&&actionUrlSet.isEmpty()) {
+							for(String regex:actionUrlSet) {
+								if(checkUrl.matches(regex)) {
+									return false ;
 								}
 							}
 						}
+						
+						
+						
+						}
 					}
 				}
-			}
-		}
+			
+		//}
 		return false;
 	}
 

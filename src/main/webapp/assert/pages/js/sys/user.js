@@ -93,7 +93,6 @@ layui.use(['form','util','table'],function(){
 	  form.on('switch(switchTest)',function(data){
 			  var isLock = data.value;
 			  alert(isLock);
-			 
 				  $.ajax({
 					  type:"put",
 					  url:"user/"+isLock,

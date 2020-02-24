@@ -55,4 +55,7 @@
 	<delete id="delete">
 		DELETE FROM BT_SYS_SYS_ACTION_INFO WHERE RESC_CODE = #{rescCode}
 	</delete>
+	<select id="find" resultType="SysActionInfo">
+	<include refid="actioninfo_base_select" />
+	</select>
 </mapper>

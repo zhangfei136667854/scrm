@@ -2,6 +2,8 @@ package com.situ.scrm.sys.user.controller;
 
 import java.io.Serializable;
 
+import javax.servlet.http.HttpSession;
+
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +31,7 @@ public class UserController implements Serializable {
 	private static final String USER_INDEX ="sys/user/user_index";
 	private static final String USER_LIST="sys/user/user_add_edit";
 	private static final String USER_OPTION = "sys/user/user_option";
+	private static final String USER_LOGIN_INDEX = "sys/user/user_login";
 	private static final  Logger LOG = Logger.getLogger(UserController.class);
 	@Autowired
 	private UserService userService ;
@@ -71,8 +74,7 @@ public class UserController implements Serializable {
 	@GetMapping("/findByUserLevel/{userLevel}")
 	public ModelAndView doFindByUserLevel(@PathVariable Integer userLevel,ModelAndView modelAndView) {
 		modelAndView.setViewName(USER_OPTION);
-		User user =userService.findByUserLevel(userLevel-1);
-		modelAndView.addObject("user",user) ;
+		modelAndView.addObject("user",userService.findByUserLevel(userLevel-1)) ;
 		 return modelAndView;
 	}
 	/**
@@ -82,7 +84,6 @@ public class UserController implements Serializable {
 	 */
 	@PostMapping
 	public Long doPose(User user) {
-		LOG.debug("这是userxinzeng"+user);
 		return userService.saveUser(DAOUtils.buildSearchParam(user));
 	}
 	/**
@@ -103,14 +104,47 @@ public class UserController implements Serializable {
 	public User doGetUser(@PathVariable Long rowId) {
 		return userService.getByRowId(rowId);
 	}
+	/**
+	 * 
+	 * @param user
+	 * @return用户修改
+	 */
 	@PutMapping
 	public Long doUpdate(User user) {
 		return userService.doUpdate(user);
 	
 	}
+	
 	@PutMapping("/{isLock}")
 public Long UpdateIsLock(@PathVariable Integer isLock) {
 		return userService.updateIsLock(isLock);
+	}
+	/**
+	 * 
+	 * @param modelAndView
+	 * @return去用户登陆页面
+	 */
+	@GetMapping("/login")
+	public ModelAndView doLoginIndex(ModelAndView modelAndView) {
+		modelAndView.setViewName(USER_LOGIN_INDEX);
+		return modelAndView;
+	}
+	/**
+	 * 
+	 * @param user
+	 * @param session
+	 * @return用户登陆
+	 */
+	@GetMapping("/userLogin")
+	public User userLogin(User user,HttpSession session) {
+		 return userService.userLogin(user,session);
+	}
+	@GetMapping("/loginOut")
+	public ModelAndView loginOut(ModelAndView modelAndView,HttpSession session) {
+		session.removeAttribute("user");
+		session.removeAttribute("actionInfoMap");
+		modelAndView.setViewName(USER_LOGIN_INDEX);
+		return modelAndView;
 	}
 
 }

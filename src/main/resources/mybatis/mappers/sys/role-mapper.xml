@@ -162,4 +162,7 @@
 			</if>
 		</if>
 	</sql>
+	<select id="findByRoleCode" resultType="java.lang.Long">
+	SELECT ROW_ID FROM BT_SYS_ROLE WHERE ROLE_CODE=#{roleCode}
+	</select>
 </mapper>

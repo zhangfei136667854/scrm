@@ -10,10 +10,10 @@
 					<!-- 使用自定义标签在页面上判断 button或是超链接 是否可以显示 -->
 					<%-- <auth:have url="role" method="post"> --%>
 					<!-- 新增按钮 开始 -->
-					<button type="button" class="layui-btn layui-btn-sm layui-btn-add">
+					<auth:have url="role" method="post"><button type="button" class="layui-btn layui-btn-sm layui-btn-add">
 						<i class="layui-icon layui-icon-addition"></i>新增
 					</button>
-					<%-- </auth:have> --%>
+				</auth:have> 
 					<!-- 新增按钮 结束 -->
 				</div>
 				<div class="layui-card-body">

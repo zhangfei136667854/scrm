@@ -26,4 +26,6 @@ public interface RoleDao extends BaseDao<Role> {
 	 * @return
 	 */
 	Role getByName(String roleName);
+
+	Long findByRoleCode(String roleCode);
 }

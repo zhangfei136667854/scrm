@@ -27,5 +27,7 @@ public interface UserDao {
 
 	Long updateByIsLock(Integer isLock);
 
+	User login(User user);
+
 
 }

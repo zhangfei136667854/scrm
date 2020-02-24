@@ -87,7 +87,7 @@
 </script>
 <script type="text/html" id="isLockTpl">
  {{# if(d.isLock ==0){ }}
-     <input type="checkbox" value="" checked name="open" lay-skin="switch" lay-filter="switchTest" lay-text="正常|锁定">
+    <input type="checkbox" value="" checked name="open" lay-skin="switch" lay-filter="switchTest" lay-text="正常|锁定">
   {{#  } else { }}
     <input type="checkbox" value="" name="close" lay-skin="switch" lay-filter="switchTest" lay-text="正常|锁定">
   {{#  } }}

@@ -46,4 +46,10 @@ SELECT COUNT(ROW_ID) FROM BT_SYS_USER WHERE ACTIVE_FLAG=1
 	<update id="updateByIsLock" parameterType="java.lang.Integer">
 	UPDATE BT_SYS_USER SET IS_LOCK=#{isLock} WHERE ROW_ID=#{rowId}
 	</update>
+	<select id="login" parameterType="User" resultType="User">
+	SELECT ROLE_CODE,ROW_ID,USER_KIND,USER_PASS,USER_LEVEL,USER_NAME,USER_CODE,LOGIN_COUNT,LOGIN_DATE,IS_LOCK,ACTIVE_FLAG
+	FROM BT_SYS_USER WHERE IS_LOCK =0
+	<if test="userPass!=null"> AND USER_PASS=#{userPass} </if>
+	<if test="userCode!=null">  AND USER_CODE=#{userCode}</if>
+	</select>
 </mapper>

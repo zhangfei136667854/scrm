@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%
+	if(request.getSession().getAttribute("user")==null){
+		response.sendRedirect("user/login");
+	}
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +48,7 @@
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;"> <img
 						src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
-						class="layui-nav-img"> 贤心
+						class="layui-nav-img">${sessionScope.user.userName}
 				</a>
 					<dl class="layui-nav-child">
 						<dd>
@@ -52,7 +58,8 @@
 							<a href="">安全设置</a>
 						</dd>
 					</dl></li>
-				<li class="layui-nav-item"><a href="">退了</a></li>
+				<li class="layui-nav-item"><a href="user/loginOut">退出登陆</a></li>
+				
 			</ul>
 		</div>
 		<!-- 左侧菜单 开始 -->
@@ -61,7 +68,7 @@
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="test"
 					id="left_nav_tree">
-					<li class="layui-nav-item layui-nav-itemed"><a class=""
+					<!-- <li class="layui-nav-item layui-nav-itemed"><a class=""
 						href="javascript:;">所有商品</a>
 						<dl class="layui-nav-child">
 							<dd>
@@ -76,7 +83,7 @@
 							<dd>
 								<a href="">超链接</a>
 							</dd>
-						</dl></li>
+						</dl></li> -->
 					<li class="layui-nav-item"><a href="javascript:;">
 							<i class="layui-icon layui-icon-home"></i> 系统管理</a>
 						<dl class="layui-nav-child">
@@ -96,8 +103,8 @@
 								<a href="sysSetting">系统设置</a>
 							</dd>
 						</dl></li>
-					<li class="layui-nav-item"><a href="">云市场</a></li>
-					<li class="layui-nav-item"><a href="">发布商品</a></li>
+					<!-- <li class="layui-nav-item"><a href="">云市场</a></li>
+					<li class="layui-nav-item"><a href="">发布商品</a></li> -->
 				</ul>
 			</div>
 		</div>

@@ -1,14 +1,25 @@
 package com.situ.scrm.sys.user.service.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpSession;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.situ.scrm.commons.domain.LayResult;
+import com.situ.scrm.sys.role.dao.RoleDao;
+import com.situ.scrm.sys.role.dao.RoleResourceDao;
+import com.situ.scrm.sys.sysresource.dao.SysActionInfoDao;
+import com.situ.scrm.sys.sysresource.domain.SysActionInfo;
 import com.situ.scrm.sys.user.dao.UserDao;
 import com.situ.scrm.sys.user.domain.User;
 import com.situ.scrm.sys.user.service.UserService;
@@ -24,6 +35,12 @@ public class UserServiceImpl implements Serializable, UserService {
 	private static final Logger LOG = Logger.getLogger(UserServiceImpl.class);
 	@Autowired
 	private UserDao userDao ;
+	@Autowired
+	private SysActionInfoDao sysActionDao ;
+	@Autowired
+	private RoleResourceDao roleResourceDao ;
+	@Autowired
+	private RoleDao roleDao ;
 
 	@Override
 	public LayResult findByPage(Integer page, Integer limit, User user) {
@@ -89,6 +106,58 @@ public class UserServiceImpl implements Serializable, UserService {
 			return userDao.updateByIsLock(0);
 		}
 		
+	}
+
+	@Override
+	public User userLogin(User user,HttpSession session) {
+	String userPass = MD5Utils.encode(user.getUserPass());
+	user.setUserPass(userPass);
+	User user1 = userDao.login(user);
+	if(user1!=null) {
+		session.setAttribute("user", user1);
+	}
+	Integer userKind=user1.getUserKind();//用户类型1:超级员工 0:普通员工
+	//用户根据角色对应的动作数据集合
+		List<SysActionInfo> actionInfoList=null;
+		if(userKind==1) {//超级员工
+			//拥有所有的actionInfo集合数据
+			actionInfoList=sysActionDao.find();
+		}else {//普通用户
+			List<String> rescodeList=roleResourceDao.findCode(roleDao.findByRoleCode(user1.getRoleCode()));
+			if(rescodeList!=null) {
+				actionInfoList=new ArrayList<SysActionInfo>();
+				List<SysActionInfo> allActionInfoList =sysActionDao.find();
+				if(allActionInfoList!=null) {
+					for(SysActionInfo sysActionInfo:allActionInfoList) {
+						if(rescodeList.contains(sysActionInfo.getRescCode())) {
+							actionInfoList.add(sysActionInfo);
+						}
+					}
+				}
+			}
+		}
+		//开始整理动作数据
+		if(actionInfoList!=null) {
+			Map<String,Set<String>> actionInfoMap =new HashMap<String,Set<String>>();
+			for(SysActionInfo actionInfo:actionInfoList) {
+				String method = actionInfo.getMethod();
+				String actionUrl = actionInfo.getActionUrl();
+				Set<String> actionUrlSet = actionInfoMap.get(method);
+				if(actionUrlSet==null) {
+					actionUrlSet = new HashSet<String>();
+					
+				}
+				actionUrlSet.add(actionUrl.replace("\\{\\w*\\}","\\\\w+"));
+				actionInfoMap.put(method,actionUrlSet);
+			}
+			LOG.debug("这是会话里面的数据actionInfoMap"+actionInfoMap);
+			session.setAttribute("actionInfoMap", actionInfoMap);
+		}
+		
+		
+		
+		
+		return user1;
 	}
 
 }
