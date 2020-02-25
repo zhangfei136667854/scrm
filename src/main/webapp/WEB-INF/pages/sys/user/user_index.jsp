@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="auth" uri="/auth-tags" %>
 <div class="layui-fluid">
 	<div class="layui-row layui-col-space15">
 		<div class="layui-col-md12">
@@ -6,9 +7,11 @@
 				<div class="layui-card-header">
 					用户管理
 					<!-- 新增按钮 开始 -->
+					<auth:have url="user" method="post">
 					<button type="button" class="layui-btn layui-btn-sm layui-btn-add">
 						<i class="layui-icon layui-icon-addition"></i>新增
 					</button>
+					</auth:have>
 					<!-- 新增按钮 结束 -->
 				</div>
 				<div class="layui-card-body">
@@ -57,9 +60,13 @@
 <!-- 修改，删除 按钮 -->
 <!-- 此处注意：必须有lay-event 才能通过table.on完成事件的绑定 -->
 <script type="text/html" id="userBtnTpl">
+<auth:have url="user" method="put">
  <a class="layui-btn layui-btn-xs" lay-event="user_edit">修改</a>
+</auth:have>
 {{# if(d.rolerKind ==1){ }}
+<auth:have url="user" method="delete">
 	<button type="button" class="layui-btn layui-btn-xs layui-btn-disabled">删除</button>
+</auth:have>
 {{# }else{  }}
 	<button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</button>
  {{#  } }}
@@ -87,9 +94,9 @@
 </script>
 <script type="text/html" id="isLockTpl">
  {{# if(d.isLock ==0){ }}
-    <input type="checkbox" value="" checked name="open" lay-skin="switch" lay-filter="switchTest" lay-text="正常|锁定">
+    <input type="checkbox" value="{{d.rowId}}" checked name="open" lay-skin="switch" lay-filter="switchTest" lay-text="正常|锁定">
   {{#  } else { }}
-    <input type="checkbox" value="" name="close" lay-skin="switch" lay-filter="switchTest" lay-text="正常|锁定">
+    <input type="checkbox" value="{{d.rowId}}" name="close" lay-skin="switch" lay-filter="switchTest" lay-text="正常|锁定">
   {{#  } }}
  
   </script>

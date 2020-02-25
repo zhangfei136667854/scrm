@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%
-	if(request.getSession().getAttribute("user")==null){
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	if (request.getSession().getAttribute("user") == null) {
 		response.sendRedirect("user/login");
 	}
-	%>
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>系统后台</title>
+<jsp:include page="/base.jsp"></jsp:include>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -48,7 +49,7 @@
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;"> <img
 						src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
-						class="layui-nav-img">${sessionScope.user.userName}
+						class="layui-nav-img"> ${sessionScope.user.userName}
 				</a>
 					<dl class="layui-nav-child">
 						<dd>
@@ -59,7 +60,6 @@
 						</dd>
 					</dl></li>
 				<li class="layui-nav-item"><a href="user/loginOut">退出登陆</a></li>
-				
 			</ul>
 		</div>
 		<!-- 左侧菜单 开始 -->
@@ -83,28 +83,54 @@
 							<dd>
 								<a href="">超链接</a>
 							</dd>
-						</dl></li> -->
-					<li class="layui-nav-item"><a href="javascript:;">
-							<i class="layui-icon layui-icon-home"></i> 系统管理</a>
+						</dl></li>
+					<li class="layui-nav-item"><a href="javascript:;"> <i
+							class="layui-icon layui-icon-home"></i> 系统管理
+					</a>
 						<dl class="layui-nav-child">
 							<dd>
-								 <a href="user"><i class="layui-icon layui-icon-user"></i> 用户管理</a>
+								<a href="user"><i class="layui-icon layui-icon-user"></i>
+									用户管理</a>
 							</dd>
 							<dd>
-								<a href="role">角色管理</a>
+								<a href="role"><i class="layui-icon layui-icon-auz"></i>
+									角色管理</a>
 							</dd>
 							<dd>
 								<a href="sysresource">资源管理</a>
 							</dd>
 							<dd>
-								<a href="dictionaries">数据字典</a>
+								<a href="dictionary">数据字典</a>
 							</dd>
 							<dd>
-								<a href="sysSetting">系统设置</a>
+								<a href="sysconfig">系统设置</a>
 							</dd>
-						</dl></li>
-					<!-- <li class="layui-nav-item"><a href="">云市场</a></li>
-					<li class="layui-nav-item"><a href="">发布商品</a></li> -->
+						</dl></li> -->
+
+					<c:if test="${!empty resourceList}">
+						<c:forEach items="${resourceList}" var="resource"
+							varStatus="status">
+							<c:if test="${resource.menuUrl eq 'controller'}">
+								<li class="layui-nav-item"><a href="javascript:;"> <i
+										class="layui-icon ${resource.rescIcon}"></i>
+										${resource.rescName}
+								</a> <c:set value="${resource.children}" var="childResourceList"></c:set>
+
+									<dl class="layui-nav-child">
+										<c:if test="${!empty childResourceList}">
+											<c:forEach items="${childResourceList}" var="childResource">
+												<dd>
+													<a href="${childResource.menuUrl}"><i
+														class="layui-icon ${childResource.rescIcon}"></i>
+														${childResource.rescName}</a>
+												</dd>
+											</c:forEach>
+										</c:if>
+									</dl></li>
+							</c:if>
+						</c:forEach>
+					</c:if>
+
 				</ul>
 			</div>
 		</div>
@@ -139,13 +165,13 @@
 <!-- 引入系统的通用脚本  -->
 <script type="text/javascript" src="assert/pages/js/app_core.js"></script>
 <script>
-//此处引入treeTable的layui插件 次配置应该在项目中运行一次即可，不可以重复加载。
-layui.config({
-	base : 'assert/layui/'//你存放新模块的目录，注意，不是layui的模块目录
-}).extend({
-	treeTable : 'treeTable/treeTable',
-	iconPicker: 'iconPicker/iconPicker'
-});
+	//此处引入treeTable的layui插件 次配置应该在项目中运行一次即可，不可以重复加载。
+	layui.config({
+		base : 'assert/layui/'//你存放新模块的目录，注意，不是layui的模块目录
+	}).extend({
+		treeTable : 'treeTable/treeTable',
+		iconPicker : 'iconPicker/iconPicker'
+	});
 	//JavaScript代码区域
 	layui.use([ 'element', 'form', 'layer' ], function() {
 		var element = layui.element;
@@ -153,20 +179,21 @@ layui.config({
 		var form = layui.form;
 		var layer = layui.layer;
 		//绑定左侧表单二级目录的点击
-		$('#left_nav_tree').find('.layui-nav-child').off('click', 'a').on('click', 'a', function() {
-				$.ajax({
-					url : $(this).attr('href'),
-					success : function(htmlData) {
-						$('#layui-body-main').html(htmlData);
-						//尝试解决搜索表单 select ,radio等不显示的问题
-						if ($('#form_search')) {
-							//尝试更新一下搜索表单
-							form.render(null, 'form_search');
+		$('#left_nav_tree').find('.layui-nav-child').off('click', 'a').on(
+				'click', 'a', function() {
+					$.ajax({
+						url : $(this).attr('href'),
+						success : function(htmlData) {
+							$('#layui-body-main').html(htmlData);
+							//尝试解决搜索表单 select ,radio等不显示的问题
+							if ($('#form_search')) {
+								//尝试更新一下搜索表单
+								form.render(null, 'form_search');
+							}
 						}
-					}
+					});
+					return false;
 				});
-				return false;
-			});
 	});
 </script>
 </html>

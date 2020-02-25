@@ -18,7 +18,7 @@ layui.use(['form','util','table'],function(){
 		where:$('#form_search').serialize(),//搜索表单数据
 	page:true ,//开启分页
 	cols:[[
-		  {field: 'rowId', title: 'ID', width:80, sort: true, fixed: 'left'}
+		  {field: 'rowId', title: 'ID', width:80, sort: true, fixed: 'left',templet:'#rowId'}
 	      ,{field: 'userKind', title: '员工类型', width:100,templet:'#userKindTpl'}
 	      ,{field: 'userLevel', title: '员工级别', width:120,templet:'#userLevelTpl'}
 	      ,{field: 'userName', title: '员工名称',width:100}
@@ -91,11 +91,10 @@ layui.use(['form','util','table'],function(){
 			}
 			});
 	  form.on('switch(switchTest)',function(data){
-			  var isLock = data.value;
-			  alert(isLock);
+			  var rowId = data.value;
 				  $.ajax({
 					  type:"put",
-					  url:"user/"+isLock,
+					  url:"user/"+rowId,
 					  success:function(result){
 						  if(result){
 							  layer.msg("用户状态设置成功");  

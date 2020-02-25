@@ -9,6 +9,7 @@ package com.situ.scrm.sys.role.dao;
 import org.springframework.stereotype.Repository;
 
 import com.situ.scrm.commons.dao.BaseDao;
+import com.situ.scrm.commons.domain.BaseClass;
 import com.situ.scrm.sys.role.domain.Role;
 
 
@@ -28,4 +29,5 @@ public interface RoleDao extends BaseDao<Role> {
 	Role getByName(String roleName);
 
 	Long findByRoleCode(String roleCode);
+
 }

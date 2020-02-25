@@ -1,8 +1,11 @@
 package com.situ.scrm.sys.user.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.situ.scrm.commons.domain.LayResult;
+import com.situ.scrm.sys.sysresource.domain.SysResource;
 import com.situ.scrm.sys.user.domain.User;
 
 public interface UserService {
@@ -19,8 +22,10 @@ public interface UserService {
 
 	Long doUpdate(User user);
 
-	Long updateIsLock(Integer isLock);
+	Long updateIsLock(Long rowId);
 
 	User userLogin(User user,HttpSession session);
+
+	  List<SysResource> findAuthResourceList(HttpSession session); 
 
 }

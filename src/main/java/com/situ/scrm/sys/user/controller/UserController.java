@@ -115,9 +115,9 @@ public class UserController implements Serializable {
 	
 	}
 	
-	@PutMapping("/{isLock}")
-public Long UpdateIsLock(@PathVariable Integer isLock) {
-		return userService.updateIsLock(isLock);
+	@PutMapping("/{rowId}")
+public Long UpdateIsLock(@PathVariable Long rowId) {
+		return userService.updateIsLock(rowId);
 	}
 	/**
 	 * 

@@ -25,7 +25,7 @@ public interface UserDao {
 
 	Long update(User user);
 
-	Long updateByIsLock(Integer isLock);
+	Long updateByIsLock(@Param("isLock")Integer isLock,@Param("rowId")Long rowId );
 
 	User login(User user);
 

@@ -19,7 +19,9 @@ import com.situ.scrm.commons.domain.LayResult;
 import com.situ.scrm.sys.role.dao.RoleDao;
 import com.situ.scrm.sys.role.dao.RoleResourceDao;
 import com.situ.scrm.sys.sysresource.dao.SysActionInfoDao;
+import com.situ.scrm.sys.sysresource.dao.SysResourceDao;
 import com.situ.scrm.sys.sysresource.domain.SysActionInfo;
+import com.situ.scrm.sys.sysresource.domain.SysResource;
 import com.situ.scrm.sys.user.dao.UserDao;
 import com.situ.scrm.sys.user.domain.User;
 import com.situ.scrm.sys.user.service.UserService;
@@ -41,6 +43,8 @@ public class UserServiceImpl implements Serializable, UserService {
 	private RoleResourceDao roleResourceDao ;
 	@Autowired
 	private RoleDao roleDao ;
+	@Autowired
+	private SysResourceDao  sysResourceDao ;
 
 	@Override
 	public LayResult findByPage(Integer page, Integer limit, User user) {
@@ -99,11 +103,13 @@ public class UserServiceImpl implements Serializable, UserService {
 	}
 
 	@Override
-	public Long updateIsLock(Integer isLock) {
+	public Long updateIsLock(Long rowId) {
+		User user= userDao.getUser(rowId);
+		Integer isLock = user.getIsLock();
 		if(isLock==0) {
-			return userDao.updateByIsLock(1);
+			return userDao.updateByIsLock(1,rowId);
 		}else {
-			return userDao.updateByIsLock(0);
+			return userDao.updateByIsLock(0,rowId);
 		}
 		
 	}
@@ -147,7 +153,7 @@ public class UserServiceImpl implements Serializable, UserService {
 					actionUrlSet = new HashSet<String>();
 					
 				}
-				actionUrlSet.add(actionUrl.replace("\\{\\w*\\}","\\\\w+"));
+				actionUrlSet.add(actionUrl.replaceAll("\\{\\w*\\}","\\\\w+"));
 				actionInfoMap.put(method,actionUrlSet);
 			}
 			LOG.debug("这是会话里面的数据actionInfoMap"+actionInfoMap);
@@ -158,6 +164,67 @@ public class UserServiceImpl implements Serializable, UserService {
 		
 		
 		return user1;
+	}
+
+	@Override
+	public List<SysResource> findAuthResourceList(HttpSession session) {
+	User loginUser =(User)session.getAttribute("user");
+	String roleCode = loginUser.getRoleCode();
+	Integer userKind =loginUser.getUserKind();// 用户类型#1 :超级用户;0:普通用户;
+	List<SysResource> resourceList = null;
+	if(userKind==1) {
+		resourceList =sysResourceDao.find(); 
+		
+	}else {
+		if(roleCode!=null) {
+			Long roleId =roleDao.findByRoleCode(roleCode);
+			List<String> rescCodeList = roleResourceDao.findCode(roleId);
+			resourceList = new ArrayList<SysResource>();
+			List<SysResource> allResourceList = sysResourceDao.find();
+			for (SysResource sysResource : allResourceList) {
+				if (rescCodeList != null && rescCodeList. contains( sysResource.getRescCode())) {
+					resourceList.add( sysResource);
+				}
+			}
+			
+			
+		}
+	}
+	
+		return bulidAuthResourceList(resourceList);
+	}
+
+	private List<SysResource> bulidAuthResourceList(List<SysResource> resourceList) {
+		
+		Map<String, List<SysResource>> resourceMap = new HashMap<String, List<SysResource>>();
+		for (SysResource sysResource : resourceList) {
+			String parentCode = sysResource.getParentCode();
+			List<SysResource> list = resourceMap.get(parentCode);
+			if (list == null) {
+				list = new ArrayList<SysResource>();
+			}
+			list.add(sysResource);
+			resourceMap.put(parentCode, list);
+		}
+		
+		for (SysResource sysResource : resourceList) {
+			//如果是一级资源
+			if(sysResource.getParentCode().equals(SysResource.DEFAULT_PARENT_CODE)) {
+				//查询子资源
+				List<SysResource> children=resourceMap.get(sysResource.getRescCode());
+			    if(children!=null) {
+			    	//设置子资源
+			    	sysResource.setChildren(children);
+			    }
+			
+			}
+			
+			}
+		
+		
+		
+		return resourceList;
+		
 	}
 
 }

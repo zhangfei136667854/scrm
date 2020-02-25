@@ -27,6 +27,7 @@ import com.situ.scrm.utils.AppConfig;
 public class AuthTag extends SimpleTagSupport implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final String SEPARATOR = "/";
+	private Boolean  result = true;
 	// 判断传入的值(实际为URL)是否在用户的权限列表中存在,如果存在则显示标签内的内容,否则不显示(一般为链接或是动作按钮)
 	private String url;// 需要检测的URL
 	private String method;// 需要检测的method方法
@@ -44,9 +45,15 @@ public class AuthTag extends SimpleTagSupport implements Serializable {
 		// 在SimpleTagSupport类中存在一个getJspBody()方法,此方法返回的就是一个Fragment对象,利用此对象的invoke()方法即可完成标签体内容的输出
 		JspFragment jspFragment = getJspBody();
 		// 判断是否满足显示标签内的内容,如果true,则显示自定义标签中的内容。否则不显示。
-		if (checkInvoke(session)) {
-			jspFragment.invoke(null);
+		Boolean checked = checkInvoke(session);
+		if(!result) {
+			checked = !checked ;
+			
 		}
+		if(checked) {
+			 jspFragment.invoke(null);
+		}
+		
 	}
 
 	/**
@@ -74,10 +81,10 @@ public class AuthTag extends SimpleTagSupport implements Serializable {
 							checkUrl = url.replaceFirst(SEPARATOR, "");
 						}
 						Set<String> actionUrlSet =resourceMap.get(method.toUpperCase());
-						if(actionUrlSet!=null&&actionUrlSet.isEmpty()) {
+						if(actionUrlSet !=null && !actionUrlSet.isEmpty()) {
 							for(String regex:actionUrlSet) {
 								if(checkUrl.matches(regex)) {
-									return false ;
+									return true ;
 								}
 							}
 						}
