@@ -19,14 +19,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.situ.scrm.commons.domain.LayResult;
-import com.situ.scrm.commons.LayTree;
+import com.situ.scrm.commons.domain.LayTree;
 import com.situ.scrm.sys.role.dao.RoleDao;
 import com.situ.scrm.sys.role.dao.RoleResourceDao;
 import com.situ.scrm.sys.role.domain.Role;
 import com.situ.scrm.sys.role.domain.RoleResource;
 import com.situ.scrm.sys.role.param.RoleAuth;
 import com.situ.scrm.sys.role.service.RoleService;
-import com.situ.scrm.syscount.util.SysCountUtils;
+import com.situ.scrm.sys.syscount.util.SysCountUtils;
 import com.situ.scrm.sys.sysresource.dao.SysResourceDao;
 import com.situ.scrm.sys.sysresource.domain.SysResource;
 import com.situ.scrm.utils.DAOUtils;

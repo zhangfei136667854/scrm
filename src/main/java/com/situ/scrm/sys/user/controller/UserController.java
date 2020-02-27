@@ -1,10 +1,13 @@
+/**
+ * @Company:中享思途   
+ * @Title:UserController.java 
+ * @Author:wxinpeng   
+ * @Date:2020年1月8日 上午9:54:17     
+ */
 package com.situ.scrm.sys.user.controller;
 
 import java.io.Serializable;
 
-import javax.servlet.http.HttpSession;
-
-import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,132 +22,133 @@ import com.situ.scrm.commons.domain.LayResult;
 import com.situ.scrm.sys.role.service.RoleService;
 import com.situ.scrm.sys.user.domain.User;
 import com.situ.scrm.sys.user.service.UserService;
-import com.situ.scrm.utils.DAOUtils;
+
+/**
+ * @ClassName:UserController
+ * @Description:(用户的Controller层)
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private static final String PAGE_USER_INDEX = "sys/user/user_index";
+	private static final String PAGE_USER_ADD_EDIT = "sys/user/user_add_edit";
+	private static final String PAGE_USER_OPTION = "sys/user/user_option";
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private RoleService roleService;
 
 	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private static final String USER_INDEX ="sys/user/user_index";
-	private static final String USER_LIST="sys/user/user_add_edit";
-	private static final String USER_OPTION = "sys/user/user_option";
-	private static final String USER_LOGIN_INDEX = "sys/user/user_login";
-	private static final  Logger LOG = Logger.getLogger(UserController.class);
-	@Autowired
-	private UserService userService ;
-	@Autowired
-	private RoleService roleService ;
-	/**
-	 * 
+	 * @Title: goIdnex
+	 * @Description:(进首页)
 	 * @param modelAndView
-	 * @return进首页
+	 * @return
 	 */
-	@GetMapping
-	public ModelAndView goIndex(ModelAndView modelAndView) {
-		modelAndView.setViewName(USER_INDEX);
-		return modelAndView ;
+	@RequestMapping
+	public ModelAndView goIdnex(ModelAndView modelAndView) {
+		modelAndView.setViewName(PAGE_USER_INDEX);
+		return modelAndView;
 	}
+
 	/**
+	 * @Title: getForm
+	 * @Description:(得到表单)
+	 * @param modelAndView
+	 * @return
+	 */
+	@GetMapping("/form")
+	public ModelAndView getForm(ModelAndView modelAndView) {
+		modelAndView.addObject("roleList", roleService.findAllRole());
+		modelAndView.setViewName(PAGE_USER_ADD_EDIT);
+		return modelAndView;
+	}
+
+	@GetMapping("/findByUserLevel/{userLevel}")
+	public ModelAndView doFindByUserLevel(@PathVariable Integer userLevel, ModelAndView modelAndView) {
+		modelAndView.setViewName(PAGE_USER_OPTION);
+		// User user =userService.findByUserLevel(userLevel-1);
+		modelAndView.addObject("user", userService.findByUserLevel(userLevel - 1));
+		return modelAndView;
+	}
+
+	/**
+	 * @Title: checkUserCode
+	 * @Description:(检测CODE唯一)
+	 * @param userCode
+	 * @return
+	 */
+	@GetMapping("/checkcode")
+	public Integer checkUserCode(String userCode) {
+		return userService.checkUserCode(userCode);
+	}
+
+	/**
+	 * 分页查询
 	 * 
 	 * @param page
 	 * @param limit
-	 * @param user
-	 * @return分页查询用户
+	 * @param searchRole
+	 * @return
 	 */
 	@GetMapping("/{page}/{limit}")
-	public LayResult  doFind (@PathVariable Integer page,@PathVariable Integer limit,User user) {
-		
-				
-				return userService.findByPage(page,limit,user);
+	public LayResult findUserByPage(@PathVariable Integer page, @PathVariable Integer limit, User searchUser) {
+		return userService.findUserByPage(page, limit, searchUser);
 	}
+
 	/**
-	 * 
-	 * @param modelAndView
-	 * @return新增的表单
-	 */
-	@GetMapping("/form")
-	public ModelAndView doFormList(ModelAndView modelAndView) {
-		modelAndView.addObject("roleList",roleService.findAllRole());
-		modelAndView.setViewName(USER_LIST);
-		return modelAndView;
-	}
-	@GetMapping("/findByUserLevel/{userLevel}")
-	public ModelAndView doFindByUserLevel(@PathVariable Integer userLevel,ModelAndView modelAndView) {
-		modelAndView.setViewName(USER_OPTION);
-		modelAndView.addObject("user",userService.findByUserLevel(userLevel-1)) ;
-		 return modelAndView;
-	}
-	/**
-	 * 
-	 * @param user
-	 * @return用胡新增
+	 * @Title: doAddRole
+	 * @Description:(执行新增功能)
+	 * @param role
+	 * @return
 	 */
 	@PostMapping
-	public Long doPose(User user) {
-		return userService.saveUser(DAOUtils.buildSearchParam(user));
+	public Long doAddUser(User user) {
+		return userService.saveUser(user);
 	}
+
 	/**
-	 * 
+	 * @Title: doDeleteRole
+	 * @Description:(执行删除)
 	 * @param rowId
-	 * @return删除用户
+	 * @return
 	 */
 	@DeleteMapping("/{rowId}")
-	public Long doDelete(@PathVariable Long rowId) {
-		return userService.daDelete(rowId);
+	public Integer doDeleteUser(@PathVariable Long rowId) {
+		return userService.doDeleteUser(rowId);
 	}
+
 	/**
-	 * 
+	 * @Title: goEditRole
+	 * @Description:(进修改)
 	 * @param rowId
-	 * @return根据rowid查询实例
+	 * @return
 	 */
 	@GetMapping("/{rowId}")
-	public User doGetUser(@PathVariable Long rowId) {
-		return userService.getByRowId(rowId);
+	public User goEditUser(@PathVariable Long rowId) {
+		return userService.getUser(rowId);
 	}
+
 	/**
-	 * 
-	 * @param user
-	 * @return用户修改
+	 * @Title: doEditRole
+	 * @Description:(执行修改)
+	 * @param role
+	 * @return
 	 */
 	@PutMapping
-	public Long doUpdate(User user) {
-		return userService.doUpdate(user);
-	
+	public Integer doEditUser(User user) {
+		return userService.doEditUser(user);
 	}
-	
-	@PutMapping("/{rowId}")
-public Long UpdateIsLock(@PathVariable Long rowId) {
-		return userService.updateIsLock(rowId);
-	}
+
 	/**
-	 * 
-	 * @param modelAndView
-	 * @return去用户登陆页面
+	 * @Title: doLock
+	 * @Description:(执行锁定/解除锁定)
+	 * @param rowId
+	 * @return
 	 */
-	@GetMapping("/login")
-	public ModelAndView doLoginIndex(ModelAndView modelAndView) {
-		modelAndView.setViewName(USER_LOGIN_INDEX);
-		return modelAndView;
-	}
-	/**
-	 * 
-	 * @param user
-	 * @param session
-	 * @return用户登陆
-	 */
-	@GetMapping("/userLogin")
-	public User userLogin(User user,HttpSession session) {
-		 return userService.userLogin(user,session);
-	}
-	@GetMapping("/loginOut")
-	public ModelAndView loginOut(ModelAndView modelAndView,HttpSession session) {
-		session.removeAttribute("user");
-		session.removeAttribute("actionInfoMap");
-		modelAndView.setViewName(USER_LOGIN_INDEX);
-		return modelAndView;
+	@PutMapping("/dolock")
+	public Integer doLock(Long rowId, Integer isLock) {
+		return userService.update4Lock(rowId, isLock);
 	}
 
 }

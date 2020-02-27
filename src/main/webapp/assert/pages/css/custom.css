@@ -35,18 +35,25 @@ body {
 	padding: 20px 30px 0px 0px;
 }
 /* 匹配checkbox唯一校验 样式 开始 */
-.layui-form-danger .layui-form-checkbox span{
+.layui-form-danger .layui-form-checkbox span {
 	background-color: red;
 }
-.layui-form-danger .layui-form-checkbox i{
+
+.layui-form-danger .layui-form-checkbox i {
 	border-color: red;
 }
 /* 匹配checkbox唯一校验 样式 结束 */
 /* 思途 修改 --2020/1/29 结束 */
-.padding-left-30{
+.padding-left-30 {
 	padding-left: 30px;
 }
+
+.layui-card-header .btn-left {
+	float: right;
+	margin-top: 7px;
+	margin-right: 10px;
+}
 /*配合 iconpicker 使用*/
-.layui-iconpicker-body{
+.layui-iconpicker-body {
 	min-width: 300px;
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.situ.scrm.commons.domain.LayResult;
-import com.situ.scrm.commons.LayTree;
+import com.situ.scrm.commons.domain.LayTree;
 import com.situ.scrm.sys.role.domain.Role;
 import com.situ.scrm.sys.role.param.RoleAuth;
 

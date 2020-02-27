@@ -6,7 +6,6 @@
 		<label class="layui-form-label">角色类型</label>
 		<div class="layui-input-block">
 			<select name="roleKind">
-			<option value=""></option>
 				<option value="1">超级角色</option>
 				<option value="0">普通角色</option>
 			</select>

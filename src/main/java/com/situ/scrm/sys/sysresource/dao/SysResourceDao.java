@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import com.situ.scrm.commons.dao.BaseDao;
 import com.situ.scrm.sys.sysresource.domain.SysResource;
 
+
+
 /**
  * @ClassName:SysResourceDao
  * @Description:(系统资源的DAO层)

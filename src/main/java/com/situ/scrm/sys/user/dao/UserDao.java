@@ -5,29 +5,26 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.situ.scrm.commons.domain.Pagination;
+import com.situ.scrm.commons.dao.BaseDao;
 import com.situ.scrm.sys.user.domain.User;
 
+
+
 @Repository
-public interface UserDao {
+public interface UserDao extends BaseDao<User> {
+	/**
+	 * @Title: getUserByCode 
+	 * @Description:(根据UserCode查询实例)
+	 * @param userCode
+	 * @return
+	 */
+	User getUserByCode(String userCode);
 
-	User findByLevel(int userLevel);
+	List<User> findByLevel(int i);//根据用户等级查询一个用户实例
 
-	Long save(User buildSearchParam);
+	void update4Lock(@Param("rowId")Long rowId, @Param("isLock")Integer isLock);
 
-	Integer get();
-	
-	List<User> findBYpage(@Param("pagination") Pagination pagination, @Param("user") User user);
-
-	Long delete(Long rowId);
-
-	User getUser(Long rowId);
-
-	Long update(User user);
-
-	Long updateByIsLock(@Param("isLock")Integer isLock,@Param("rowId")Long rowId );
-
-	User login(User user);
+	User findByCodeAndPass(@Param("userCode")String userCode, @Param("userPass")String encode);//登录账号和密码
 
 
 }

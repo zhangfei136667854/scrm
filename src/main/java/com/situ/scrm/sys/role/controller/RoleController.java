@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.situ.scrm.commons.domain.LayResult;
-import com.situ.scrm.commons.LayTree;
+import com.situ.scrm.commons.domain.LayTree;
 import com.situ.scrm.sys.role.domain.Role;
 import com.situ.scrm.sys.role.param.RoleAuth;
 import com.situ.scrm.sys.role.service.RoleService;

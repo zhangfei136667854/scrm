@@ -46,10 +46,11 @@ public class AuthTag extends SimpleTagSupport implements Serializable {
 		JspFragment jspFragment = getJspBody();
 		// 判断是否满足显示标签内的内容,如果true,则显示自定义标签中的内容。否则不显示。
 		Boolean checked = checkInvoke(session);
-		if(!result) {
-			checked = !checked ;
-			
-		}
+		
+		  if(!result) { checked = !checked ;
+		  
+		  }
+		 
 		if(checked) {
 			 jspFragment.invoke(null);
 		}
@@ -69,7 +70,7 @@ public class AuthTag extends SimpleTagSupport implements Serializable {
 			//return true;
 		//} else {// 否则进行URL的检测,所提供的URL是否在用户的权限列表中
 			// 取出放置在HttpSession中的用户权限URL集合
-			Object objectResourceMap = session.getAttribute("actionInfoMap");
+			Object objectResourceMap = session.getAttribute(AppConfig.SESSION_RESOURCE_MAP_ROLE);
 			if (objectResourceMap != null) {
 				@SuppressWarnings("unchecked")
 				Map<String, Set<String>> resourceMap = (Map<String,  Set<String>>) objectResourceMap;

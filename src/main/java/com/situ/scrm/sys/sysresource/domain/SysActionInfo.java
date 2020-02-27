@@ -12,6 +12,8 @@ import org.apache.ibatis.type.Alias;
 
 import com.situ.scrm.commons.domain.BaseClass;
 
+
+
 /**
  * @ClassName:SysActionInfo
  * @Description:(资源动作)

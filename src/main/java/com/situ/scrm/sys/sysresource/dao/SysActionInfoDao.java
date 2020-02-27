@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import com.situ.scrm.sys.sysresource.domain.SysActionInfo;
 
+
+
 /**
  * @ClassName:SysActionInfoDao
  * @Description:(SysActionInfoDao)
@@ -54,5 +56,5 @@ public interface SysActionInfoDao {
 	 */
 	void delete(String rescCode);
 
-	List<SysActionInfo> find();
+	List<SysActionInfo> find();//所有的动作数据
 }

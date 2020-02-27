@@ -13,6 +13,8 @@ import org.apache.ibatis.type.Alias;
 
 import com.situ.scrm.commons.domain.BaseClass;
 
+
+
 /**
  * @ClassName:SysResource
  * @Description:(系统资源)
@@ -123,13 +125,4 @@ public class SysResource extends BaseClass implements Serializable {
 	public void setHasChild(Integer hasChild) {
 		this.hasChild = hasChild;
 	}
-
-	@Override
-	public String toString() {
-		return "SysResource [parentCode=" + parentCode + ", rescCode=" + rescCode + ", rescName=" + rescName
-				+ ", rescType=" + rescType + ", rescOrder=" + rescOrder + ", menuUrl=" + menuUrl + ", rescIcon="
-				+ rescIcon + ", hasChild=" + hasChild + ", children=" + children + ", actionInfoList=" + actionInfoList
-				+ ", parentName=" + parentName + "]";
-	}
-	
 }

@@ -18,13 +18,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.situ.scrm.commons.domain.LayResult;
-import com.situ.scrm.syscount.util.SysCountUtils;
+import com.situ.scrm.sys.syscount.util.SysCountUtils;
 import com.situ.scrm.sys.sysresource.dao.SysActionInfoDao;
 import com.situ.scrm.sys.sysresource.dao.SysResourceDao;
 import com.situ.scrm.sys.sysresource.domain.SysActionInfo;
 import com.situ.scrm.sys.sysresource.domain.SysResource;
 import com.situ.scrm.sys.sysresource.service.SysResourceService;
 import com.situ.scrm.utils.DAOUtils;
+
+
 
 /**
  * @ClassName:SysResourceServiceImpl
@@ -124,7 +126,7 @@ public class SysResourceServiceImpl implements SysResourceService {
 	@Transactional // 此逻辑牵扯到多次数据库的操作，启用事务处理
 	public Long saveSysResource(SysResource sysResource) {
 		// 得到资源编号
-		String rescCode = sysCountUtils.buildRescCode1();
+		String rescCode = sysCountUtils.buildRescCode();
 		sysResource.setRescCode(rescCode);
 		// 根据父类数据处理排序问题。
 		String parentCode = sysResource.getParentCode();
@@ -304,7 +306,7 @@ public class SysResourceServiceImpl implements SysResourceService {
 		if (!parentCode.equals(SysResource.DEFAULT_PARENT_CODE)) {
 			// 修改父类的资源是否有子元素
 			Integer hasChild = 0;
-			List<SysResource> childResourceList = sysResourceDao.findByParent(parentCode);
+			List<SysResource> childResourceList = sysResourceDao.findByParent(rescCode);
 			if (childResourceList != null && !childResourceList.isEmpty()) {
 				hasChild = 1;
 			}

@@ -9,9 +9,9 @@ package com.situ.scrm.commons.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-/** 
- * @ClassName:BaseClass 
- * @Description:(类的基本数据)  
+/**
+ * @ClassName:BaseClass
+ * @Description:(类的基本数据)
  */
 public class BaseClass implements Serializable {
 	private static final long serialVersionUID = 1L;

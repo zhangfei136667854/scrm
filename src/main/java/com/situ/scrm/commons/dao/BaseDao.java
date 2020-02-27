@@ -12,6 +12,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.situ.scrm.commons.domain.Pagination;
 
+
+
 /** 
  * @ClassName:BaseDao 
  * @Description:(DAO的基本接口)  
@@ -29,14 +31,14 @@ public interface BaseDao<T> {
 	 * @Description:(修改对象)
 	 * @param t
 	 */
-	Long update(T t);
+	void update(T t);
 
 	/**
 	 * @Title: delete 
 	 * @Description:(根据主键删除对象)
 	 * @param rowId
 	 */
-	Long delete(Long rowId);
+	void delete(Long rowId);
 
 	/**
 	 * @Title: get 
