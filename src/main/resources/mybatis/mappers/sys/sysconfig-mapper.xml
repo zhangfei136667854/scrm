@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.scrm.sys.sysconfig.dao.SysConfigDao">
+	<sql id="config_base_column">
+		CONFIG1,CONFIG2,CONFIG3,CONFIG4,ACTIVE_FLAG,CREATE_BY, CREATE_DATE
+	</sql>
+	<sql id="config_base_select">
+		SELECT ROW_ID,
+		<include refid="config_base_column" />
+		,UPDATE_BY,UPDATE_DATE FROM BT_SYS_SYSCONFIG WHERE ACTIVE_FLAG = 1
+	</sql>
+	<insert id="save" parameterType="SysConfig" useGeneratedKeys="true">
+		INSERT INTO BT_SYS_SYSCONFIG (
+		<include refid="config_base_column" />
+		)
+		VALUES(#{config1},#{config2},#{config3},#{config4},#{activeFlag},#{createBy},#{createDate})
+	</insert>
+	<select id="getConfig" resultType="SysConfig">
+		<include refid="config_base_select" />
+	</select>
+	<update id="update" parameterType="SysConfig">
+		UPDATE BT_SYS_SYSCONFIG
+		<set>
+			<if test="config1 != null">
+				CONFIG1 = #{config1},
+			</if>
+			<if test="config2 != null">
+				CONFIG2 = #{config2},
+			</if>
+			<if test="config3 != null">
+				CONFIG3 = #{config3},
+			</if>
+			<if test="config4 != null">
+				CONFIG4 = #{config4},
+			</if>
+			<if test="activeFlag != null">
+				ACTIVE_FLAG = #{activeFlag},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate},
+			</if>
+			<if test="updateBy != null">
+				UPDATE_BY = #{updateBy},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate},
+			</if>
+		</set>
+		
+	</update>
+</mapper>
