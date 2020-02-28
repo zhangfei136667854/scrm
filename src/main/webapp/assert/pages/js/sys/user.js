@@ -1,7 +1,8 @@
-layui.use(['table','form'],function(){
+layui.use(['table','util','form'],function(){
 	var $ = layui.$;
 	var form = layui.form;
 	var table = layui.table;
+	var util = layui.util;
 	// 自定义校验
 	form.verify({
 		// 至少选中一个
@@ -29,16 +30,17 @@ layui.use(['table','form'],function(){
 		where : $('#form_search').serialize(),// 模拟额外的参数#目前引入搜索表单的数据
 		page : true,// 开启分页
 		cols: [[ // 表头
-		      {field: 'rowId', title: 'ID', width:80, sort: true, fixed: 'left'}
-		      ,{field: 'userKind', title: '用户类型',templet:'#userKindTpl'}
-		      ,{field: 'userLevel', title: '用户级别',templet:'#userLevelTpl'}
-		      ,{field: 'userName', title: '用户名称'}
-		      ,{field: 'userCode', title: '登录账号'} // 此次不设置width 让其自动适应
-		      ,{field: 'userPhone', title: '手机号码'}
-		      ,{field: 'isLock', title: '用户状态',templet:'#isLockTpl'}
-		      ,{field: 'loginCount', title: '登陆次数'}
-		      
-		      ,{field: 'loginDate', title: '最后登录时间'}
+		      {field: 'rowId', title: 'ID', sort: true, fixed: 'left'}
+		      ,{field: 'userKind', title: '用户类型',width:100,templet:'#userKindTpl'}
+		      ,{field: 'userLevel', title: '用户级别',width:100,templet:'#userLevelTpl'}
+		      ,{field: 'userName', title: '用户名称',width:100}
+		      ,{field: 'userCode', title: '登录账号',width:130} // 此次不设置width 让其自动适应
+		      ,{field: 'userPhone', title: '手机号码',width:130}
+		      ,{field: 'loginCount', title: '登陆次数',width:90}
+		      ,{field: 'loginDate', title: '最后登录时间',width:160,templet: function (d) {
+                  return util.toDateString(d.createDate);
+              }, }
+		      ,{field: 'isLock', title: '用户状态',templet:'#isLockTpl',width:100}
 		      ,{title: '操作', width: 140,templet:'#roleBtnTpl'}
 		    ]],done: function(res, curr, count){
 		    	$("[data-field='rowId']").css("display","none");}

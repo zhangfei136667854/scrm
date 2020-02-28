@@ -59,6 +59,14 @@
 	<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</a>
 
 </script>
+<script type="text/html" id="isPublic">
+{{# if(d.isPublic==1){ }}
+	<a class="layui-btn layui-btn-xs layui-btn-danger">公海客户</a>
+{{# }else{  }}
+	<button type="button" class=" layui-btn-xs " >非公海客户</button>
+ {{#  } }}
+
+</script>
 
 <!-- 引入自定义的JS脚本 -->
-<script type="text/javascript" src="assert/pages/js/sys/customer.js"></script>
+<script type="text/javascript" src="assert/pages/js/ods/customer.js"></script>

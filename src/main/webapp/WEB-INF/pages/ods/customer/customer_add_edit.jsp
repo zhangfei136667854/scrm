@@ -92,7 +92,7 @@
 						<c:set value="${dictionary.children}" var="childDictionaryList"></c:set>
 						<label class="layui-form-label">${dictionary.dicValue}</label>
 						<div class="layui-input-inline">
-							<select name="${dictionary.dicKey}" lay-verify="required" >
+							<select name="${dictionary.dicCode}" lay-verify="required" >
 								<option value="">请选择</option>
 								<c:if test="${!empty childDictionaryList}">
 									<c:forEach items="${childDictionaryList}" var="childDictionary">
@@ -139,4 +139,4 @@
 		</div>
 	</div>
 </form>
-<script type="text/javascript" src="assert/pages/js/sys/customer.js"></script>
+<script type="text/javascript" src="assert/pages/js/ods/customer.js"></script>

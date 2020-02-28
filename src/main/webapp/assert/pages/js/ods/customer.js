@@ -22,15 +22,16 @@ layui.use([ 'table', 'form','upload','rate' ], function() {
 		where : $('#form_search').serialize(),// 模拟额外的参数#目前引入搜索表单的数据
 		page : true,// 开启分页
 		cols: [[ //表头
-		      {field: 'rowId', title: 'ID', width:80, sort: true, fixed: 'left'}
-		      ,{field: 'cusName', title: '客户名称', width:180}
-		      ,{field: 'cusPhone', title: '手机号码', width:180}
-		      ,{field: 'cusContact', title: '联系人', width:180}
-		      ,{field: 'cusInfo', title: '备注'} 
+		      {field: 'rowId', title: 'ID', width:60, sort: true, fixed: 'left'}
+		      ,{field: 'cusCode', title: '客户编号',width:100}
+		      ,{field: 'cusName', title: '客户名称',width:100 }
+		      ,{field: 'cusPhone', title: '手机号码',width:130}
+		      ,{field: 'cusContact', title: '联系人',width:100 }
+		      ,{field: 'cusQq', title: '联系QQ',width:130 }
+		      ,{field: 'cusEmail', title: '电子邮箱',width:170 }
+		      ,{field: 'isPublic', title: '客户状态', width:110,templet:"#isPublic"}
 		      ,{title: '操作', width: 200,templet:'#customerBtnTpl'}
-		    ]],done: function(res, curr, count){
-		    	$("[data-field='rowId']").css("display","none");
-		    }
+		    ]]
 	});
 	//绑定 省 change
 	form.on('select(area1)', function(data){

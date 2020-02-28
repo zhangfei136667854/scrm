@@ -69,6 +69,8 @@ public class UserServiceImpl implements UserService {
 		user.setCreateBy("SYS");
 		user.setCreateDate(new Date());
 		user.setActiveFlag(1);
+		user.setLoginDate(new Date());
+		user.setIsLock(0);
 		if (user.getUserLevel() == 1) {
 			user.setUserKind(1);
 		} else {

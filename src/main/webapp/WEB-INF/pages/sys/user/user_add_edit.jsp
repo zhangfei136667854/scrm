@@ -17,6 +17,7 @@
 		<label class="layui-form-label">用户角色</label>
 		<div class="layui-input-block">
 			<select name="roleCode">
+			<option value=""></option>
 				<c:if test="${!empty roleList}">
 					<c:forEach items="${roleList}" var="role">
 						<option value="${role.roleCode}">${role.roleName}</option>
@@ -41,25 +42,6 @@
 		<div class="layui-input-block">
 			<select name="parentCode" id="parentCode"></select>
 				
-		</div>
-	</div>
-	
-	<!-- <div class="layui-form-item">
-		<label class="layui-form-label">用户类型</label>
-		<div class="layui-input-block">
-			<select name="userKind">
-				<option value="1">超级用户</option>
-				<option value="0">普通用户</option>
-			</select>
-		</div>
-	</div> -->
-	<div class="layui-form-item">
-		<label class="layui-form-label">是否锁定</label>
-		<div class="layui-input-block">
-			<select name="isLock">
-				<option value="0">未锁定</option>
-				<option value="1">已锁定</option>
-			</select>
 		</div>
 	</div>
 	<div class="layui-form-item">
