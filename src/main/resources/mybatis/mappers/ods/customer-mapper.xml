@@ -291,4 +291,8 @@ AND IS_PUBLIC =#{searchParam.isPublic}
 
 		</if>
 	</sql>
+	
+	<update id="updateByCusCode" parameterType="java.lang.String">
+	UPDATE BT_ODS_CUSTOMER SET IS_PUBLIC=0  WHERE CUS_CODE =#{cusCode}
+	</update>
 </mapper>

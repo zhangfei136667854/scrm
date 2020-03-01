@@ -13,4 +13,6 @@ public interface CustomerDao extends BaseDao<Customer> {
 	 * @return
 	 */
 	Customer getByName(String cusName);
+
+	Long updateByCusCode(String cusCode);
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.scrm.ods.contract.dao.ContractDao">
+<insert id="save" parameterType="Contract">
+INSERT INTO BT_ODS_CONTRACT (PARENT_CODE,USER_NAME,CUS_CODE,CUS_NAME,CONT_TYPE,CONT_STATUS,CONT_FILE,CONT_INFO,USER_CODE,IS_CLOSE,IS_REMIND,NEXT_CONT_DATE,CONT_CODE,ACTIVE_FLAG,CREATE_BY,CREATE_DATE,CONT_TYPE_VAL,CONT_STATUS_VAL)
+VALUES(#{parentCode},#{userName},#{cusCode},#{cusName},#{contType},#{contStatus},#{contFile},#{contInfo},#{userCode},#{isClose},#{isRemind},#{nextContDate},#{contCode},#{activeFlag},#{createBy},#{createDate},#{contTypeVal},#{contStatusVal})
+</insert>
+<select id="findByPage" resultType="Contract">
+SELECT PARENT_CODE,ROW_ID,USER_NAME,CUS_CODE,CUS_NAME,CONT_TYPE,CONT_STATUS,CONT_FILE,CONT_INFO,USER_CODE,IS_CLOSE,IS_REMIND,NEXT_CONT_DATE,CONT_CODE,ACTIVE_FLAG,CREATE_BY,CREATE_DATE,CONT_TYPE_VAL,CONT_STATUS_VAL
+FROM BT_ODS_CONTRACT 
+WHERE ACTIVE_FLAG=1
+
+<if test="cont!=null">
+<if test="cont.cusName!=null">AND CUS_NAME=#{cusName}</if> 
+</if>
+LIMIT #{pagination.firstResult},#{pagination.maxResults}
+</select>
+<select id="getCount" resultType="java.lang.Integer">
+SELECT COUNT(ROW_ID) FROM BT_ODS_CONTRACT WHERE ACTIVE_FLAG=1
+</select>
+<select id="findByPageAndParentCode" resultType="Contract">
+SELECT PARENT_CODE,ROW_ID,USER_NAME,CUS_CODE,CUS_NAME,CONT_TYPE,CONT_STATUS,CONT_FILE,CONT_INFO,USER_CODE,IS_CLOSE,IS_REMIND,NEXT_CONT_DATE,CONT_CODE,ACTIVE_FLAG,CREATE_BY,CREATE_DATE,CONT_TYPE_VAL,CONT_STATUS_VAL
+FROM BT_ODS_CONTRACT 
+WHERE ACTIVE_FLAG=1 AND PARENT_CODE=#{parentCode}
+LIMIT #{pagination.firstResult},#{pagination.maxResults}
+</select>
+<select id="findByPageAndUserCode" resultType="Contract">
+SELECT PARENT_CODE,ROW_ID,USER_NAME,CUS_CODE,CUS_NAME,CONT_TYPE,CONT_STATUS,CONT_FILE,CONT_INFO,USER_CODE,IS_CLOSE,IS_REMIND,NEXT_CONT_DATE,CONT_CODE,ACTIVE_FLAG,CREATE_BY,CREATE_DATE,CONT_TYPE_VAL,CONT_STATUS_VAL
+FROM BT_ODS_CONTRACT 
+WHERE ACTIVE_FLAG=1 AND USER_CODE=#{userCode}
+LIMIT #{pagination.firstResult},#{pagination.maxResults}
+</select>
+</mapper>

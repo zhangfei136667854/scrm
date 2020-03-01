@@ -1,5 +1,9 @@
 package com.situ.scrm.sys.sysconfig.service;
 
+
+
+import java.util.Date;
+
 import com.situ.scrm.sys.sysconfig.domain.SysConfig;
 
 public interface SysConfigService {
@@ -9,6 +13,8 @@ public interface SysConfigService {
 	Integer updateSysConfig(SysConfig sysconfig);//修改系统阀值
 
 	SysConfig getSysConfig();
+
+Date getNextContDate();
 
 	
 

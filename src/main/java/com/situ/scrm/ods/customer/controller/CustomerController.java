@@ -53,8 +53,7 @@ public class CustomerController implements Serializable {
 	public ModelAndView goAddOrEdit(ModelAndView modelAndView) {
 		modelAndView.setViewName(PAGE_CUSTOMER_ADD_EDIT);
 		modelAndView.addObject("areaList", customerService.findByCode(-1));
-		List<Dictionary> dicList =dictionaryService.useDictionaryList();
-		modelAndView.addObject("dictionaryList",dicList);
+		modelAndView.addObject("dictionaryList",dictionaryService.useDictionaryList());
 		return modelAndView;
 	}
 	

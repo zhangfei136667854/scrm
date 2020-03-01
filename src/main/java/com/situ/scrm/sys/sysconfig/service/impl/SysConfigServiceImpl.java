@@ -1,18 +1,16 @@
 package com.situ.scrm.sys.sysconfig.service.impl;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-
 import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.situ.scrm.sys.sysconfig.dao.SysConfigDao;
 import com.situ.scrm.sys.sysconfig.domain.SysConfig;
 import com.situ.scrm.sys.sysconfig.service.SysConfigService;
 import com.situ.scrm.utils.DAOUtils;
-
 @Service
 public class SysConfigServiceImpl implements Serializable, SysConfigService {
 	private static final long serialVersionUID = 1L;
@@ -47,6 +45,14 @@ public class SysConfigServiceImpl implements Serializable, SysConfigService {
 	@Override
 	public SysConfig getSysConfig() {
 		return sysConfigDao.getConfig();
+	}
+
+	@Override
+	public Date getNextContDate() {
+		String config3 =sysConfigDao.getConfig().getConfig3();
+		
+	
+		return new Date();
 	}
 
 
