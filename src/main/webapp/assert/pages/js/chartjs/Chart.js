@@ -1,18 +1,18 @@
 var $ ;
-layui.user('layer',function(){
-var	$=layui.$
+layui.use('layer',function(){
+	$=layui.$
 initBarData();
 initPieData();
 	
 });
 function initBarData(){
-	var config={
+	var config = {
 			type: 'bar',
 		    data: {
 		       // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple',
 				// 'Orange'],
 		        datasets: [{
-		            label: '跟单方式柱状图',
+		            label: '跟单方式',
 		           // data: [12, 19, 3, 5, 2, 3],
 		            backgroundColor: [
 		                'rgba(255, 99, 132, 0.2)',
@@ -43,7 +43,7 @@ function initBarData(){
         }
     }
 };
-	var contType_chart = new ('chart-1',config);
+	var contType_chart = new Chart('chart-1',config);
 	$.ajax({
 	url:"chart/contType",
 	success:function(typeList){
@@ -51,23 +51,23 @@ function initBarData(){
 				var _data=contType_chart.data;
 				var _datasets =_data.datasets[0];
 				$.each(typeList,function(index,type){
-					_data.datasets[index]=type.dataCount;
+					_datasets.data[index]=type.dataCount;
 					_data.labels[index]=type.keyVal;
 				});
 			}
-		contType_cart.update();
+		contType_chart.update();
 	}
 	});
 	}
 	
 
 function initPieData(){
-	var config={
+	var config = {
 			 type: 'doughnut',//line线型图//pie饼图//
 			    data: {
 			       // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
 			        datasets: [{
-			            label: '# of Votes',
+			            label: '客户来源',
 			           // data: [12, 19, 3, 5, 2, 3],
 			            backgroundColor: [
 			                'rgba(255, 99, 132, 0.2)',
@@ -98,7 +98,7 @@ function initPieData(){
 			        }
 			    }	
 	};
-	var cusFrom_chart = new ('chart-2',config);
+	var cusFrom_chart = new Chart('chart-2',config);
 	$.ajax({
 	url:"chart/cusForm",
 	success:function(fromList){
@@ -106,7 +106,7 @@ function initPieData(){
 				var _data=cusFrom_chart.data;
 				var _datasets =_data.datasets[0];
 				$.each(fromList,function(index,from){
-					_data.datasets[index]=from.dataCount;
+					_datasets.data[index]=from.dataCount;
 					_data.labels[index]=from.keyVal;
 				});
 			}

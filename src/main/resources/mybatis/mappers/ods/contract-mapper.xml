@@ -32,4 +32,14 @@ FROM BT_ODS_CONTRACT
 WHERE ACTIVE_FLAG=1 AND USER_CODE=#{userCode}
 LIMIT #{pagination.firstResult},#{pagination.maxResults}
 </select>
+<select id="find" resultType="Data">
+SELECT  COUNT(ROW_ID) AS DATA_COUNT ,CONT_TYPE_VAL AS KEY_VAL FROM BT_ODS_CONTRACT WHERE ACTIVE_FLAG=1 GROUP  BY  CONT_TYPE 
+</select>
+<select id="findByParentCode" resultType="Data">
+SELECT  COUNT(ROW_ID) AS DATA_COUNT ,CONT_TYPE_VAL AS KEY_VAL FROM BT_ODS_CONTRACT WHERE ACTIVE_FLAG=1 AND PARENT_CODE=#{parentCode} GROUP  BY  CONT_TYPE 
+</select>
+<select id="findByUserCode" resultType="Data">
+SELECT  COUNT(ROW_ID) AS DATA_COUNT ,CONT_TYPE_VAL AS KEY_VAL FROM BT_ODS_CONTRACT WHERE ACTIVE_FLAG=1 AND USER_CODE=#{userCode} GROUP  BY  CONT_TYPE 
+
+</select>
 </mapper>

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.situ.scrm.commons.domain.Pagination;
+import com.situ.scrm.ods.chart.domain.Data;
 import com.situ.scrm.ods.contract.domain.Contract;
 
 @Repository
@@ -20,5 +21,13 @@ public interface ContractDao {
 	List<Contract> findByPageAndParentCode(@Param("pagination")Pagination pagination,@Param("parentCode") String parentCode);
 
 	List<Contract> findByPageAndUserCode(@Param("pagination")Pagination pagination,@Param("userCode") String userCode);
+
+	List<Data> find();
+
+	List<Data> finByParentCode(String parentCode);
+
+	List<Data> findByUserCode(String userCode);
+
+
 
 }

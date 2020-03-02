@@ -1,20 +1,15 @@
 package com.situ.scrm.ods.chart.service;
 
-import java.io.Serializable;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.http.HttpSession;
 
-import com.situ.scrm.ods.contract.dao.ContractDao;
+import com.situ.scrm.ods.chart.domain.Data;
 
-public class ChartService implements Serializable {
+public interface ChartService {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Autowired
-	private ContractDao contractDao ;
-	
-	
+	List<Data> getType(HttpSession session);
+
+	List<Data> getFrom(HttpSession session);
 
 }

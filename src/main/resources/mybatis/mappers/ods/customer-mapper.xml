@@ -295,4 +295,13 @@ AND IS_PUBLIC =#{searchParam.isPublic}
 	<update id="updateByCusCode" parameterType="java.lang.String">
 	UPDATE BT_ODS_CUSTOMER SET IS_PUBLIC=0  WHERE CUS_CODE =#{cusCode}
 	</update>
+	<select id="findAll" resultType="Data">
+	SELECT COUNT(ROW_ID) AS DATA_COUNT ,CUS_FROM_VAL AS KEY_VAL FROM BT_ODS_CUSTOMER WHERE ACTIVE_FLAG=1 GROUP BY CUS_SOURCE 
+	</select>
+	<select id="findByParentCode" resultType="Data">
+	SELECT COUNT(ROW_ID) AS DATA_COUNT ,CUS_FROM_VAL AS KEY_VAL FROM V_CONT_CUS WHERE PARENT_CODE=#{parentCode} GROUP BY CUS_SOURCE 
+	</select>
+	<select id="findByUserCode" resultType="Data">
+	SELECT COUNT(ROW_ID) AS DATA_COUNT ,CUS_FROM_VAL AS KEY_VAL FROM V_CONT_CUS WHERE  USER_CODE=#{userCode} GROUP BY CUS_SOURCE 
+	</select>
 </mapper>

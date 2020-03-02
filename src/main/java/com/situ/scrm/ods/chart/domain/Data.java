@@ -1,14 +1,17 @@
 package com.situ.scrm.ods.chart.domain;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("Data")
 public class Data {
 
 	
-	private String dataCount ;
+	private Integer dataCount ;
 	private String keyVal ;
-	public String getDataCount() {
+	public Integer getDataCount() {
 		return dataCount;
 	}
-	public void setDataCount(String dataCount) {
+	public void setDataCount(Integer dataCount) {
 		this.dataCount = dataCount;
 	}
 	public String getKeyVal() {
