@@ -58,7 +58,7 @@
 			<input name="userCode" lay-verify="required|checkusercode" id="userCode" class="layui-input check-unique" placeholder="请输入登录账号" autocomplete="off" class="layui-input">
 		</div>
 	</div>
-	<div class="layui-form-item layui-form-text">
+	<div class="layui-form-item layui-form-text" id="pass_div">
 		<label class="layui-form-label">登录密码</label>
 		<div class="layui-input-block">
 			<input type="password" name="userPass" lay-verify="required" placeholder="请输入登录密码" autocomplete="off" class="layui-input">

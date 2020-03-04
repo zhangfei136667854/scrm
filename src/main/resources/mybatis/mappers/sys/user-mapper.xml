@@ -281,4 +281,7 @@
 		<include refid="user_base_select" />
 		AND USER_CODE = #{userCode} AND USER_PASS=#{userPass}
 	</select>
+	<select id="getByUserCode" resultType="java.lang.String">
+	SELECT USER_NAME  FROM BT_SYS_USER WHERE USER_CODE =#{userCode}
+	</select>
 </mapper>

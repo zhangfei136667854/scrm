@@ -26,5 +26,7 @@ public interface UserDao extends BaseDao<User> {
 
 	User findByCodeAndPass(@Param("userCode")String userCode, @Param("userPass")String encode);//登录账号和密码
 
+	String getByUserCode(String userCode);
+
 
 }

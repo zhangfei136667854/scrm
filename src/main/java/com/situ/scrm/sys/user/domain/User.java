@@ -30,6 +30,7 @@ public class User extends BaseClass implements Serializable {
 	private Integer loginCount;// 登陆次数
 	private String loginIp;// 最后登录IP
 	private Date loginDate;// 最后登录时间
+	private String parentName;
 
 	public String getUserName() {
 		return userName;
@@ -135,6 +136,14 @@ public class User extends BaseClass implements Serializable {
 		this.userLevel = userLevel;
 	}
 
+	public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
 	@Override
 	public String toString() {
 		return "User [parentCode=" + parentCode + ", roleCode=" + roleCode + ", userLevel=" + userLevel + ", userName="
@@ -142,6 +151,8 @@ public class User extends BaseClass implements Serializable {
 				+ ", userAvatar=" + userAvatar + ", userKind=" + userKind + ", isLock=" + isLock + ", loginCount="
 				+ loginCount + ", loginIp=" + loginIp + ", loginDate=" + loginDate + "]";
 	}
+
+
 
 	
 

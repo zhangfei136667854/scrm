@@ -88,7 +88,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUser(Long rowId) {
-		return userDao.get(rowId);
+		User user= userDao.get(rowId);
+		String parentName =userDao.getByUserCode(user.getParentCode());
+		user.setParentName(parentName);
+		 return user ;
 	}
 
 	@Override

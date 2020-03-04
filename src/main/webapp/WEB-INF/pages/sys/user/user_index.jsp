@@ -72,7 +72,7 @@
 <!-- 此处注意：必须有lay-event 才能通过table.on完成事件的绑定 -->
 <script type="text/html" id="roleBtnTpl">
 <auth:have url="user" method="put">
- <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+ <a class="layui-btn layui-btn-xs" lay-event="user_edit">修改</a>
 </auth:have>
 {{# if(d.userKind ==1){ }}
 <auth:have url="user/1" method="delete">
